@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.saml11eap7</groupId>
+        <artifactId>saml11eap7</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+
+    <artifactId>client</artifactId>
+
+    <properties>
+        <version.jbossws-cxf-client>5.1.0.Beta1</version.jbossws-cxf-client>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.ws.cxf</groupId>
+            <artifactId>jbossws-cxf-client</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.5.0</version>
+                <configuration>
+                    <mainClass>org.saml11eap7.client.WSClient</mainClass>
+                    <!--    
+                    <systemProperties>
+                        <systemProperty>
+                            <key>serviceUrl</key>
+                            <value>file://${project.basedir}/src/main/resources/wsdls/Echo.wsdl</value>
+                        </systemProperty>
+                    </systemProperties>
+                    -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

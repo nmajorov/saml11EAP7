@@ -1,0 +1,88 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+       <groupId>org.saml11eap7</groupId>
+       <artifactId>saml11eap7</artifactId>
+       <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>api</artifactId>
+
+  <properties>
+    <version.jbossws-cxf-client>5.1.0.Beta1</version.jbossws-cxf-client>
+   </properties>
+
+  <dependencies>
+      <dependency>
+          <groupId>org.jboss.ws.cxf</groupId>
+          <artifactId>jbossws-cxf-client</artifactId>
+
+          <exclusions>
+           		<exclusion>
+              	<groupId>org.jboss.com.sun.httpserver</groupId>
+              	<artifactId>httpserver</artifactId>
+            	</exclusion>
+                <exclusion>
+                    <groupId>org.apache.wss4j</groupId>
+                    <artifactId>wss4j-ws-security-common</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.wss4j</groupId>
+                    <artifactId>wss4j-ws-security-dom</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.wss4j</groupId>
+                    <artifactId>wss4j-policy</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.wss4j</groupId>
+                    <artifactId>wss4j-ws-security-stax</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.wss4j</groupId>
+                    <artifactId>
+                        wss4j-ws-security-policy-stax
+                    </artifactId>
+                </exclusion>
+            </exclusions>
+          <scope>provided</scope>
+        </dependency>
+  </dependencies>
+
+  <build>
+    <!-- define the name for the deployable archive instead of using the default name with the version -->
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <!-- (wsconsume) generate classes from wsdl -->
+      <plugin>
+        <groupId>org.jboss.ws.plugins</groupId>
+        <artifactId>jaxws-tools-maven-plugin</artifactId>
+        <version>${version.jaxws-tools-maven-plugin}</version>
+        <configuration>
+          <wsdls>
+            <wsdl>${basedir}/src/main/resources/wsdls/Echo.wsdl</wsdl>
+          </wsdls>
+          <extension>true</extension>
+          <verbose>false</verbose>
+          <endpointClass/>
+          <!-- some JDK implementations forbid file access for external schema,
+                    see http://docs.oracle.com/javase/8/docs/api/javax/xml/XMLConstants.html#ACCESS_EXTERNAL_SCHEMA -->
+          <argLine>-Djavax.xml.accessExternalSchema=all</argLine>
+          <fork>false</fork>
+          <targetPackage>org.saml11eap7.api</targetPackage>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>wsconsume</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+       <groupId>org.apache.maven.plugins</groupId>
+       <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
