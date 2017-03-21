@@ -29,7 +29,7 @@ import org.jboss.ws.api.configuration.ClientConfigurer;
 /**
  * simple web-service client for echo service
  *
- * @author <a href="mailto:nikolaj.majorov@baloise.ch">Nikolaj Majorov</a>
+ * @author <a href="mailto:nmajorov@redhat.com">Nikolaj Majorov</a>
  **/
 public class WSClient {
     private Bus cxfBus;
